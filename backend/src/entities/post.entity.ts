@@ -3,7 +3,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
 
-@ObjectType()
+@ObjectType('Post', { isAbstract: true })
 @Entity()
 export class Post {
   @Field(() => ID)
@@ -22,13 +22,13 @@ export class Post {
   @Column({ nullable: true })
   thumbnailUrl: string;
 
-  @Field(() => User)
-  @ManyToOne(() => User)
+  @Field(() => User, { nullable: true })
+  @ManyToOne(() => User, { eager: true })
   author: User;
 
-  @Field(() => [Comment], { nullable: true })
-  @OneToMany(() => Comment, comment => comment.post)
-  comments?: Comment[];
+  @Field(() => [Comment], { nullable: true, defaultValue: [] })
+  @OneToMany(() => Comment, comment => comment.post, { eager: true })
+  comments: Comment[];
 
   @Field()
   @CreateDateColumn()
