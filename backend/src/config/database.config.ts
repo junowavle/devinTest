@@ -9,12 +9,13 @@ dotenv.config();
 
 const config: TypeOrmModuleOptions = {
   type: 'postgres',
-  url: process.env.DATABASE_URL,
+  url: process.env.DATABASE_URL || 'postgres://user_xprmlirkve:7BVywdJTELL1NwrccGn1@devinapps-backend-prod.cluster-clussqewa0rh.us-west-2.rds.amazonaws.com/db_kvxtjcnxch',
   ssl: {
     rejectUnauthorized: false,
   },
   entities: [User, Post, Comment, Reaction],
   synchronize: true, // Be careful with this in production
+  logging: true, // Enable logging to help debug database issues
 };
 
 export default config;
