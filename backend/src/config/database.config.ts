@@ -17,7 +17,12 @@ const config: TypeOrmModuleOptions = {
   dropSchema: true, // Add this to force drop and recreate tables
   logging: true, // Enable logging to help debug database issues
   cache: false,
-  metadataTableName: 'typeorm_metadata_new' // Use a new metadata table name to avoid any cached metadata
+  metadataTableName: `typeorm_metadata_${Date.now()}`, // Use timestamp to ensure unique metadata table
+  maxQueryExecutionTime: 1000,
+  extra: {
+    max: 5,
+    connectionTimeoutMillis: 3000
+  }
 };
 
 export default config;

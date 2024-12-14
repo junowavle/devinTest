@@ -13,10 +13,6 @@ export const GET_RECENT_POSTS = gql`
         id
         name
       }
-      comments {
-        id
-        content
-      }
     }
   }
 `;

@@ -22,8 +22,10 @@ import { CommentService } from './services/comment.service';
       autoSchemaFile: true,
       playground: true,
       buildSchemaOptions: {
-        orphanedTypes: [User, Post, Comment]
-      }
+        orphanedTypes: [User, Post, Comment],
+        numberScalarMode: 'integer'
+      },
+      introspection: true
     }),
   ],
   providers: [

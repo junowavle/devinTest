@@ -17,7 +17,12 @@ const config = {
     dropSchema: true,
     logging: true,
     cache: false,
-    metadataTableName: 'typeorm_metadata_new'
+    metadataTableName: 'typeorm_metadata_new',
+    maxQueryExecutionTime: 1000,
+    extra: {
+        max: 5,
+        connectionTimeoutMillis: 3000
+    }
 };
 exports.databaseConfig = config;
 exports.default = config;
