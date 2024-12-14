@@ -12,17 +12,23 @@ export class PostService {
   ) {}
 
   async findAll(): Promise<Post[]> {
-    return this.postRepository.find({
-      relations: ['author', 'reactions', 'comments'],
-      order: { createdAt: 'DESC' }
-    });
+    return this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.author', 'author')
+      .leftJoinAndSelect('post.comments', 'comments')
+      .leftJoinAndSelect('post.reactions', 'reactions')
+      .orderBy('post.createdAt', 'DESC')
+      .getMany();
   }
 
   async findOne(id: number): Promise<Post> {
-    return this.postRepository.findOne({
-      where: { id },
-      relations: ['author', 'comments']
-    });
+    return this.postRepository
+      .createQueryBuilder('post')
+      .leftJoinAndSelect('post.author', 'author')
+      .leftJoinAndSelect('post.comments', 'comments')
+      .leftJoinAndSelect('post.reactions', 'reactions')
+      .where('post.id = :id', { id })
+      .getOne();
   }
 
   async create(title: string, content: string, thumbnailUrl: string, author: User): Promise<Post> {
