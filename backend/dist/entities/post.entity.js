@@ -44,13 +44,13 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], Post.prototype, "author", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [comment_entity_1.Comment]),
+    (0, graphql_1.Field)(() => [comment_entity_1.Comment], { nullable: true }),
     (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, comment => comment.post),
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [reaction_entity_1.Reaction]),
-    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.post),
+    (0, graphql_1.Field)(() => [reaction_entity_1.Reaction], { nullable: true }),
+    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.post, { eager: false }),
     __metadata("design:type", Array)
 ], Post.prototype, "reactions", void 0);
 __decorate([

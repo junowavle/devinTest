@@ -25,6 +25,16 @@ let PostService = class PostService {
         return this.postRepository
             .createQueryBuilder('post')
             .leftJoinAndSelect('post.author', 'author')
+            .select([
+            'post.id',
+            'post.title',
+            'post.content',
+            'post.thumbnailUrl',
+            'post.createdAt',
+            'post.updatedAt',
+            'author.id',
+            'author.name'
+        ])
             .orderBy('post.createdAt', 'DESC')
             .getMany();
     }

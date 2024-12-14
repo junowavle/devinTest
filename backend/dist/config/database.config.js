@@ -9,12 +9,13 @@ const reaction_entity_1 = require("../entities/reaction.entity");
 dotenv.config();
 const config = {
     type: 'postgres',
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL || 'postgres://user_xprmlirkve:7BVywdJTELL1NwrccGn1@devinapps-backend-prod.cluster-clussqewa0rh.us-west-2.rds.amazonaws.com/db_kvxtjcnxch',
     ssl: {
         rejectUnauthorized: false,
     },
     entities: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, reaction_entity_1.Reaction],
     synchronize: true,
+    logging: true,
 };
 exports.databaseConfig = config;
 exports.default = config;
