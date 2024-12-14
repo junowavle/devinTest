@@ -33,7 +33,7 @@ let ReactionResolver = class ReactionResolver {
 exports.ReactionResolver = ReactionResolver;
 __decorate([
     (0, graphql_1.Query)(() => [reaction_entity_1.Reaction]),
-    __param(0, (0, graphql_1.Args)('targetType')),
+    __param(0, (0, graphql_1.Args)('targetType', { type: () => String })),
     __param(1, (0, graphql_1.Args)('targetId', { type: () => graphql_1.Int })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Number]),
@@ -42,9 +42,9 @@ __decorate([
 __decorate([
     (0, graphql_1.Mutation)(() => Boolean),
     __param(0, (0, graphql_1.Args)('userId', { type: () => graphql_1.Int })),
-    __param(1, (0, graphql_1.Args)('targetType')),
+    __param(1, (0, graphql_1.Args)('targetType', { type: () => String })),
     __param(2, (0, graphql_1.Args)('targetId', { type: () => graphql_1.Int })),
-    __param(3, (0, graphql_1.Args)('reactionType')),
+    __param(3, (0, graphql_1.Args)('reactionType', { type: () => String })),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, String, Number, String]),
     __metadata("design:returntype", Promise)

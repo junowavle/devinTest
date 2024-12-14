@@ -5,6 +5,6 @@ export declare class ReactionResolver {
     private reactionService;
     private userService;
     constructor(reactionService: ReactionService, userService: UserService);
-    reactions(targetType: string, targetId: number): Promise<Reaction[]>;
-    toggleReaction(userId: number, targetType: string, targetId: number, reactionType: string): Promise<boolean>;
+    reactions(targetType: 'post' | 'comment', targetId: number): Promise<Reaction[]>;
+    toggleReaction(userId: number, targetType: 'post' | 'comment', targetId: number, reactionType: 'like' | 'dislike'): Promise<boolean>;
 }
