@@ -15,6 +15,7 @@ export class PostService {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.author', 'author')
+      .leftJoinAndSelect('post.comments', 'comments')
       .select([
         'post.id',
         'post.title',
@@ -23,7 +24,10 @@ export class PostService {
         'post.createdAt',
         'post.updatedAt',
         'author.id',
-        'author.name'
+        'author.name',
+        'comments.id',
+        'comments.content',
+        'comments.createdAt'
       ])
       .orderBy('post.createdAt', 'DESC')
       .getMany();
@@ -33,6 +37,20 @@ export class PostService {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.author', 'author')
+      .leftJoinAndSelect('post.comments', 'comments')
+      .select([
+        'post.id',
+        'post.title',
+        'post.content',
+        'post.thumbnailUrl',
+        'post.createdAt',
+        'post.updatedAt',
+        'author.id',
+        'author.name',
+        'comments.id',
+        'comments.content',
+        'comments.createdAt'
+      ])
       .where('post.id = :id', { id })
       .getOne();
   }

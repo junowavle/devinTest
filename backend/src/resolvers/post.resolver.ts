@@ -12,7 +12,12 @@ export class PostResolver {
 
   @Query(() => [Post])
   async posts(): Promise<Post[]> {
-    return this.postService.findAll();
+    const posts = await this.postService.findAll();
+    return posts.map(post => ({
+      ...post,
+      author: post.author || null,
+      comments: post.comments || []
+    }));
   }
 
   @Query(() => Post)

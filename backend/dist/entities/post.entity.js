@@ -14,7 +14,6 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("./user.entity");
 const comment_entity_1 = require("./comment.entity");
-const reaction_entity_1 = require("./reaction.entity");
 let Post = class Post {
 };
 exports.Post = Post;
@@ -40,7 +39,7 @@ __decorate([
 ], Post.prototype, "thumbnailUrl", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_entity_1.User),
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, user => user.posts),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User),
     __metadata("design:type", user_entity_1.User)
 ], Post.prototype, "author", void 0);
 __decorate([
@@ -48,11 +47,6 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, comment => comment.post),
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [reaction_entity_1.Reaction], { nullable: true }),
-    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.post, { eager: false }),
-    __metadata("design:type", Array)
-], Post.prototype, "reactions", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),

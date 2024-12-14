@@ -3,7 +3,6 @@ import * as dotenv from 'dotenv';
 import { User } from '../entities/user.entity';
 import { Post } from '../entities/post.entity';
 import { Comment } from '../entities/comment.entity';
-import { Reaction } from '../entities/reaction.entity';
 
 dotenv.config();
 
@@ -13,9 +12,12 @@ const config: TypeOrmModuleOptions = {
   ssl: {
     rejectUnauthorized: false,
   },
-  entities: [User, Post, Comment, Reaction],
+  entities: [User, Post, Comment],
   synchronize: true, // Be careful with this in production
+  dropSchema: true, // Add this to force drop and recreate tables
   logging: true, // Enable logging to help debug database issues
+  cache: false,
+  metadataTableName: 'typeorm_metadata_new' // Use a new metadata table name to avoid any cached metadata
 };
 
 export default config;

@@ -2,7 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDat
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
-import { Reaction } from './reaction.entity';
 
 @ObjectType()
 @Entity()
@@ -24,16 +23,12 @@ export class Post {
   thumbnailUrl: string;
 
   @Field(() => User)
-  @ManyToOne(() => User, user => user.posts)
+  @ManyToOne(() => User)
   author: User;
 
   @Field(() => [Comment], { nullable: true })
   @OneToMany(() => Comment, comment => comment.post)
-  comments: Comment[];
-
-  @Field(() => [Reaction], { nullable: true })
-  @OneToMany(() => Reaction, reaction => reaction.post, { eager: false })
-  reactions: Reaction[];
+  comments?: Comment[];
 
   @Field()
   @CreateDateColumn()

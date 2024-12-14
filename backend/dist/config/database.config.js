@@ -5,7 +5,6 @@ const dotenv = require("dotenv");
 const user_entity_1 = require("../entities/user.entity");
 const post_entity_1 = require("../entities/post.entity");
 const comment_entity_1 = require("../entities/comment.entity");
-const reaction_entity_1 = require("../entities/reaction.entity");
 dotenv.config();
 const config = {
     type: 'postgres',
@@ -13,9 +12,12 @@ const config = {
     ssl: {
         rejectUnauthorized: false,
     },
-    entities: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, reaction_entity_1.Reaction],
+    entities: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment],
     synchronize: true,
+    dropSchema: true,
     logging: true,
+    cache: false,
+    metadataTableName: 'typeorm_metadata_new'
 };
 exports.databaseConfig = config;
 exports.default = config;

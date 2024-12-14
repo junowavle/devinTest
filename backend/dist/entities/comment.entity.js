@@ -14,7 +14,6 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("./user.entity");
 const post_entity_1 = require("./post.entity");
-const reaction_entity_1 = require("./reaction.entity");
 let Comment = class Comment {
 };
 exports.Comment = Comment;
@@ -38,11 +37,6 @@ __decorate([
     (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, post => post.comments),
     __metadata("design:type", post_entity_1.Post)
 ], Comment.prototype, "post", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [reaction_entity_1.Reaction]),
-    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.comment),
-    __metadata("design:type", Array)
-], Comment.prototype, "reactions", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),

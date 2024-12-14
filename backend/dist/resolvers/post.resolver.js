@@ -23,7 +23,12 @@ let PostResolver = class PostResolver {
         this.userService = userService;
     }
     async posts() {
-        return this.postService.findAll();
+        const posts = await this.postService.findAll();
+        return posts.map(post => ({
+            ...post,
+            author: post.author || null,
+            comments: post.comments || []
+        }));
     }
     async post(id) {
         return this.postService.findOne(id);
