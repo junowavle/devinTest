@@ -4,6 +4,6 @@ import { User } from '../entities/user.entity';
 export declare class ReactionService {
     private reactionRepository;
     constructor(reactionRepository: Repository<Reaction>);
-    toggleReaction(user: User, targetType: string, targetId: number, reactionType: string): Promise<boolean>;
-    getReactions(targetType: string, targetId: number): Promise<Reaction[]>;
+    toggleReaction(user: User, targetType: 'post' | 'comment', targetId: number, reactionType: 'like' | 'dislike'): Promise<boolean>;
+    getReactions(targetType: 'post' | 'comment', targetId: number): Promise<Reaction[]>;
 }

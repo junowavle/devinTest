@@ -15,6 +15,14 @@ export class Reaction {
   @ManyToOne(() => User)
   user: User;
 
+  @Field()
+  @Column()
+  targetType: string; // 'post' or 'comment'
+
+  @Field()
+  @Column()
+  targetId: number;
+
   @Field(() => Post, { nullable: true })
   @ManyToOne(() => Post, post => post.reactions, { nullable: true })
   post: Post;

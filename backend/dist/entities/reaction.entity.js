@@ -13,6 +13,8 @@ exports.Reaction = void 0;
 const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("./user.entity");
+const post_entity_1 = require("./post.entity");
+const comment_entity_1 = require("./comment.entity");
 let Reaction = class Reaction {
 };
 exports.Reaction = Reaction;
@@ -36,6 +38,16 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Reaction.prototype, "targetId", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => post_entity_1.Post, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => post_entity_1.Post, post => post.reactions, { nullable: true }),
+    __metadata("design:type", post_entity_1.Post)
+], Reaction.prototype, "post", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => comment_entity_1.Comment, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => comment_entity_1.Comment, comment => comment.reactions, { nullable: true }),
+    __metadata("design:type", comment_entity_1.Comment)
+], Reaction.prototype, "comment", void 0);
 __decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.Column)(),

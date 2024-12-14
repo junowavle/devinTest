@@ -40,7 +40,7 @@ __decorate([
 ], Comment.prototype, "post", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [reaction_entity_1.Reaction]),
-    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.targetId),
+    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.comment),
     __metadata("design:type", Array)
 ], Comment.prototype, "reactions", void 0);
 __decorate([

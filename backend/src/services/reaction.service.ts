@@ -13,9 +13,9 @@ export class ReactionService {
 
   async toggleReaction(
     user: User,
-    targetType: string,
+    targetType: 'post' | 'comment',
     targetId: number,
-    reactionType: string
+    reactionType: 'like' | 'dislike'
   ): Promise<boolean> {
     const existingReaction = await this.reactionRepository.findOne({
       where: {
@@ -35,13 +35,14 @@ export class ReactionService {
       user,
       targetType,
       targetId,
-      reactionType
+      reactionType,
+      ...(targetType === 'post' ? { post: { id: targetId } } : { comment: { id: targetId } })
     });
     await this.reactionRepository.save(reaction);
     return true;
   }
 
-  async getReactions(targetType: string, targetId: number): Promise<Reaction[]> {
+  async getReactions(targetType: 'post' | 'comment', targetId: number): Promise<Reaction[]> {
     return this.reactionRepository.find({
       where: { targetType, targetId },
       relations: ['user']

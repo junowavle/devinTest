@@ -38,7 +38,8 @@ let ReactionService = class ReactionService {
             user,
             targetType,
             targetId,
-            reactionType
+            reactionType,
+            ...(targetType === 'post' ? { post: { id: targetId } } : { comment: { id: targetId } })
         });
         await this.reactionRepository.save(reaction);
         return true;

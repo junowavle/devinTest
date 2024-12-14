@@ -6,9 +6,9 @@ const common_1 = require("@nestjs/common");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableCors({
-        origin: true,
+        origin: ['http://localhost:5173', 'https://hi-chat-app-tunnel-njjayuhq.devinapps.com'],
         methods: ['GET', 'POST', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'Apollo-Require-Preflight'],
         credentials: true,
     });
     app.useGlobalPipes(new common_1.ValidationPipe());

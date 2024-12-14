@@ -23,14 +23,14 @@ let PostService = class PostService {
     }
     async findAll() {
         return this.postRepository.find({
-            relations: ['author', 'comments', 'reactions'],
+            relations: ['author', 'comments'],
             order: { createdAt: 'DESC' }
         });
     }
     async findOne(id) {
         return this.postRepository.findOne({
             where: { id },
-            relations: ['author', 'comments', 'reactions']
+            relations: ['author', 'comments']
         });
     }
     async create(title, content, thumbnailUrl, author) {

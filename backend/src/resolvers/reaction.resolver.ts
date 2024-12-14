@@ -12,7 +12,7 @@ export class ReactionResolver {
 
   @Query(() => [Reaction])
   async reactions(
-    @Args('targetType') targetType: string,
+    @Args('targetType', { type: () => String }) targetType: 'post' | 'comment',
     @Args('targetId', { type: () => Int }) targetId: number,
   ): Promise<Reaction[]> {
     return this.reactionService.getReactions(targetType, targetId);
@@ -21,9 +21,9 @@ export class ReactionResolver {
   @Mutation(() => Boolean)
   async toggleReaction(
     @Args('userId', { type: () => Int }) userId: number,
-    @Args('targetType') targetType: string,
+    @Args('targetType', { type: () => String }) targetType: 'post' | 'comment',
     @Args('targetId', { type: () => Int }) targetId: number,
-    @Args('reactionType') reactionType: string,
+    @Args('reactionType', { type: () => String }) reactionType: 'like' | 'dislike',
   ): Promise<boolean> {
     const user = await this.userService.findOne(userId);
     return this.reactionService.toggleReaction(user, targetType, targetId, reactionType);
