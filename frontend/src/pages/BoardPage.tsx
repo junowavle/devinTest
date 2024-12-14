@@ -77,7 +77,46 @@ export const BoardPage: React.FC = () => {
         />
       )}
 
-      {/* TODO: Add create post modal/form */}
+      {isCreating && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4">Create New Post</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              handleCreatePost({
+                title: formData.get('title'),
+                content: formData.get('content'),
+                thumbnailUrl: formData.get('thumbnailUrl'),
+              });
+            }}>
+              <input
+                type="text"
+                name="title"
+                placeholder="Post Title"
+                className="w-full p-2 border rounded mb-4"
+                required
+              />
+              <input
+                type="text"
+                name="thumbnailUrl"
+                placeholder="Thumbnail URL"
+                className="w-full p-2 border rounded mb-4"
+              />
+              <textarea
+                name="content"
+                placeholder="Post Content"
+                className="w-full p-2 border rounded mb-4 h-32"
+                required
+              />
+              <div className="flex justify-end gap-2">
+                <Button onClick={() => setIsCreating(false)} type="button">Cancel</Button>
+                <Button type="submit">Create</Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
