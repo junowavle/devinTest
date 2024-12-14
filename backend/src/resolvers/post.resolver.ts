@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { Post } from '../entities/post.entity';
 import { PostService } from '../services/post.service';
 import { UserService } from '../services/user.service';
@@ -16,7 +16,7 @@ export class PostResolver {
   }
 
   @Query(() => Post)
-  async post(@Args('id', { type: () => Int }) id: number): Promise<Post> {
+  async post(@Args('id', { type: () => ID }) id: string): Promise<Post> {
     return this.postService.findOne(id);
   }
 
@@ -25,7 +25,7 @@ export class PostResolver {
     @Args('title') title: string,
     @Args('content') content: string,
     @Args('thumbnailUrl', { nullable: true }) thumbnailUrl: string,
-    @Args('authorId', { type: () => Int }) authorId: number,
+    @Args('authorId', { type: () => ID }) authorId: string,
   ): Promise<Post> {
     const author = await this.userService.findOne(authorId);
     return this.postService.create(title, content, thumbnailUrl, author);
@@ -33,7 +33,7 @@ export class PostResolver {
 
   @Mutation(() => Post)
   async updatePost(
-    @Args('id', { type: () => Int }) id: number,
+    @Args('id', { type: () => ID }) id: string,
     @Args('title', { nullable: true }) title?: string,
     @Args('content', { nullable: true }) content?: string,
     @Args('thumbnailUrl', { nullable: true }) thumbnailUrl?: string,
@@ -42,7 +42,7 @@ export class PostResolver {
   }
 
   @Mutation(() => Boolean)
-  async deletePost(@Args('id', { type: () => Int }) id: number): Promise<boolean> {
+  async deletePost(@Args('id', { type: () => ID }) id: string): Promise<boolean> {
     return this.postService.delete(id);
   }
 }

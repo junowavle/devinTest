@@ -1,42 +1,44 @@
 import React from 'react';
 import { PostCard } from './PostCard';
+import { Post } from '@/types';
 
-interface Post {
-  id: number;
+interface PostFormData {
   title: string;
   content: string;
-  thumbnail?: string;
-  author: string;
+  thumbnailUrl?: string;
 }
 
 interface PostListProps {
   posts: Post[];
-  onEditPost?: (id: number) => void;
-  onDeletePost?: (id: number) => void;
+  onDelete?: (id: string) => void;
+  onEdit?: (id: string, data: PostFormData) => void;
+  onLike?: (postId: string) => void;
+  onDislike?: (postId: string) => void;
+  onAddComment?: (postId: string, content: string) => void;
+  currentUserId?: string;
 }
 
 export const PostList: React.FC<PostListProps> = ({
   posts,
-  onEditPost,
-  onDeletePost,
+  onDelete,
+  onEdit,
+  onLike,
+  onDislike,
+  onAddComment,
+  currentUserId,
 }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {posts.map((post) => (
+      {posts?.map((post) => (
         <PostCard
           key={post.id}
-          post={{
-            id: post.id.toString(),
-            title: post.title,
-            content: post.content,
-            createdAt: new Date().toISOString(),
-            author: {
-              id: '1',
-              name: post.author
-            }
-          }}
-          onEdit={onEditPost ? () => onEditPost(post.id) : undefined}
-          onDelete={onDeletePost ? () => onDeletePost(post.id) : undefined}
+          post={post}
+          onEdit={onEdit ? (data: PostFormData) => onEdit(post.id, data) : undefined}
+          onDelete={onDelete ? () => onDelete(post.id) : undefined}
+          onLike={onLike ? () => onLike(post.id) : undefined}
+          onDislike={onDislike ? () => onDislike(post.id) : undefined}
+          onAddComment={onAddComment ? (content) => onAddComment(post.id, content) : undefined}
+          currentUserId={currentUserId}
         />
       ))}
     </div>

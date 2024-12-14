@@ -2,13 +2,14 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDat
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
+import { Reaction } from './reaction.entity';
 
 @ObjectType('Post', { isAbstract: true })
 @Entity()
 export class Post {
   @Field(() => ID)
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Field()
   @Column()
@@ -29,6 +30,10 @@ export class Post {
   @Field(() => [Comment], { nullable: true, defaultValue: [] })
   @OneToMany(() => Comment, comment => comment.post, { eager: true })
   comments: Comment[];
+
+  @Field(() => [Reaction], { nullable: true, defaultValue: [] })
+  @OneToMany(() => Reaction, reaction => reaction.post, { eager: true })
+  reactions: Reaction[];
 
   @Field()
   @CreateDateColumn()

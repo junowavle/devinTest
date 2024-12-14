@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ID } from '@nestjs/graphql';
 import { Comment } from '../entities/comment.entity';
 import { CommentService } from '../services/comment.service';
 import { UserService } from '../services/user.service';
@@ -13,23 +13,23 @@ export class CommentResolver {
   ) {}
 
   @Query(() => [Comment])
-  async comments(@Args('postId', { type: () => Int }) postId: number): Promise<Comment[]> {
+  async comments(@Args('postId', { type: () => ID }) postId: string): Promise<Comment[]> {
     return this.commentService.findByPost(postId);
   }
 
   @Mutation(() => Comment)
   async createComment(
     @Args('content') content: string,
-    @Args('authorId', { type: () => Int }) authorId: number,
-    @Args('postId', { type: () => Int }) postId: number,
+    @Args('authorId', { type: () => ID }) authorId: string,
+    @Args('postId', { type: () => ID }) postId: string,
   ): Promise<Comment> {
-    const author = await this.userService.findOne(authorId);
+    const author = await this.userService.findOrCreateTestUser();
     const post = await this.postService.findOne(postId);
     return this.commentService.create(content, author, post);
   }
 
   @Mutation(() => Boolean)
-  async deleteComment(@Args('id', { type: () => Int }) id: number): Promise<boolean> {
+  async deleteComment(@Args('id', { type: () => ID }) id: string): Promise<boolean> {
     return this.commentService.delete(id);
   }
 }

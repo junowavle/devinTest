@@ -6,8 +6,8 @@ export declare class PostResolver {
     private userService;
     constructor(postService: PostService, userService: UserService);
     posts(): Promise<Post[]>;
-    post(id: number): Promise<Post>;
-    createPost(title: string, content: string, thumbnailUrl: string, authorId: number): Promise<Post>;
-    updatePost(id: number, title?: string, content?: string, thumbnailUrl?: string): Promise<Post>;
-    deletePost(id: number): Promise<boolean>;
+    post(id: string): Promise<Post>;
+    createPost(title: string, content: string, thumbnailUrl: string, authorId: string): Promise<Post>;
+    updatePost(id: string, title?: string, content?: string, thumbnailUrl?: string): Promise<Post>;
+    deletePost(id: string): Promise<boolean>;
 }

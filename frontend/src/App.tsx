@@ -4,6 +4,8 @@ import { client } from './graphql/client';
 import { HomePage } from './pages/HomePage';
 import { BoardPage } from './pages/BoardPage';
 import { colors } from './styles/colors';
+import { ErrorBoundary } from './components/ErrorBoundary';
+import { TestConnection } from './components/TestConnection';
 import './App.css';
 
 function App() {
@@ -42,10 +44,13 @@ function App() {
           </nav>
 
           <main className="max-w-[1920px] mx-auto px-8">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/board" element={<BoardPage />} />
-            </Routes>
+            <ErrorBoundary>
+              <TestConnection />
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/board" element={<BoardPage />} />
+              </Routes>
+            </ErrorBoundary>
           </main>
         </div>
       </Router>

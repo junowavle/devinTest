@@ -23,6 +23,7 @@ let PostService = class PostService {
     }
     async findAll() {
         return this.postRepository.find({
+            relations: ['comments', 'author'],
             order: {
                 createdAt: 'DESC'
             }
@@ -30,7 +31,8 @@ let PostService = class PostService {
     }
     async findOne(id) {
         return this.postRepository.findOne({
-            where: { id }
+            where: { id },
+            relations: ['comments', 'author']
         });
     }
     async create(title, content, thumbnailUrl, author) {
@@ -43,11 +45,7 @@ let PostService = class PostService {
         return this.postRepository.save(post);
     }
     async update(id, title, content, thumbnailUrl) {
-        await this.postRepository.update(id, {
-            ...(title && { title }),
-            ...(content && { content }),
-            ...(thumbnailUrl && { thumbnailUrl })
-        });
+        await this.postRepository.update(id, Object.assign(Object.assign(Object.assign({}, (title && { title })), (content && { content })), (thumbnailUrl && { thumbnailUrl })));
         return this.findOne(id);
     }
     async delete(id) {

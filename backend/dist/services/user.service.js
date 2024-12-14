@@ -27,9 +27,17 @@ let UserService = class UserService {
     async findOne(id) {
         return this.userRepository.findOne({ where: { id } });
     }
-    async create(name) {
-        const user = this.userRepository.create({ name });
+    async create(name, id) {
+        const user = this.userRepository.create({ id, name });
         return this.userRepository.save(user);
+    }
+    async findOrCreateTestUser() {
+        const testUserId = '123e4567-e89b-12d3-a456-426614174000';
+        const existingUser = await this.findOne(testUserId);
+        if (existingUser) {
+            return existingUser;
+        }
+        return this.create('Test User', testUserId);
     }
 };
 exports.UserService = UserService;

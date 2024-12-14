@@ -21,15 +21,14 @@ export class CommentService {
     return this.commentRepository.save(comment);
   }
 
-  async findByPost(postId: number): Promise<Comment[]> {
+  async findByPost(postId: string): Promise<Comment[]> {
     return this.commentRepository.find({
       where: { post: { id: postId } },
-      relations: ['author'],
       order: { createdAt: 'DESC' }
     });
   }
 
-  async delete(id: number): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     const result = await this.commentRepository.delete(id);
     return result.affected > 0;
   }
