@@ -1,16 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int, ResolveField, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { Post } from '../entities/post.entity';
 import { PostService } from '../services/post.service';
 import { UserService } from '../services/user.service';
-import { ReactionService } from '../services/reaction.service';
-import { Reaction } from '../entities/reaction.entity';
 
 @Resolver(() => Post)
 export class PostResolver {
   constructor(
     private postService: PostService,
     private userService: UserService,
-    private reactionService: ReactionService,
   ) {}
 
   @Query(() => [Post])
@@ -21,11 +18,6 @@ export class PostResolver {
   @Query(() => Post)
   async post(@Args('id', { type: () => Int }) id: number): Promise<Post> {
     return this.postService.findOne(id);
-  }
-
-  @ResolveField(() => [Reaction])
-  async reactions(@Parent() post: Post): Promise<Reaction[]> {
-    return this.reactionService.getReactions('post', post.id);
   }
 
   @Mutation(() => Post)
