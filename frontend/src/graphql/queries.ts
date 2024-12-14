@@ -13,13 +13,9 @@ export const GET_RECENT_POSTS = gql`
         id
         name
       }
-      reactions {
+      comments {
         id
-        reactionType
-        user {
-          id
-          name
-        }
+        content
       }
     }
   }

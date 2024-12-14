@@ -12,7 +12,7 @@ async function bootstrap() {
         credentials: true,
     });
     app.useGlobalPipes(new common_1.ValidationPipe());
-    await app.listen(process.env.PORT ?? 3000);
+    await app.listen(3001);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
