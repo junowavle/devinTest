@@ -37,7 +37,7 @@ export const PostList: React.FC<PostListProps> = ({
           onDelete={onDelete ? () => onDelete(post.id) : undefined}
           onLike={onLike ? () => onLike(post.id) : undefined}
           onDislike={onDislike ? () => onDislike(post.id) : undefined}
-          onAddComment={onAddComment ? (content) => onAddComment(post.id, content) : undefined}
+          onAddComment={onAddComment ? (content: string) => onAddComment(post.id, content) : undefined}
           currentUserId={currentUserId}
         />
       ))}

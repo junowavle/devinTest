@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_POSTS, CREATE_POST, DELETE_POST, UPDATE_POST } from '../graphql/queries';
 import { PostList } from '../components/board/PostList';
-import { Post } from '@/types';
 
 interface PostFormData {
   title: string;

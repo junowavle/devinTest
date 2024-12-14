@@ -10,6 +10,9 @@ interface PostCardProps {
   post: Post;
   onEdit?: (data: { title: string; content: string; thumbnailUrl?: string }) => void;
   onDelete?: () => void;
+  onLike?: () => void;
+  onDislike?: () => void;
+  onAddComment?: (content: string) => void;
   currentUserId?: string;
 }
 
