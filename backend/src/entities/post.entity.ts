@@ -27,12 +27,12 @@ export class Post {
   @ManyToOne(() => User, user => user.posts)
   author: User;
 
-  @Field(() => [Comment])
+  @Field(() => [Comment], { nullable: true })
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[];
 
-  @Field(() => [Reaction])
-  @OneToMany(() => Reaction, reaction => reaction.post)
+  @Field(() => [Reaction], { nullable: true })
+  @OneToMany(() => Reaction, reaction => reaction.post, { eager: false })
   reactions: Reaction[];
 
   @Field()
