@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_URL || 'http://localhost:3001/graphql',
+  uri: 'https://hi-chat-app-tunnel-njjayuhq.devinapps.com/graphql',
   headers: {
     'Content-Type': 'application/json',
     'Apollo-Require-Preflight': 'true',
