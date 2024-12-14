@@ -22,16 +22,18 @@ let PostService = class PostService {
         this.postRepository = postRepository;
     }
     async findAll() {
-        return this.postRepository.find({
-            relations: ['author'],
-            order: { createdAt: 'DESC' }
-        });
+        return this.postRepository
+            .createQueryBuilder('post')
+            .leftJoinAndSelect('post.author', 'author')
+            .orderBy('post.createdAt', 'DESC')
+            .getMany();
     }
     async findOne(id) {
-        return this.postRepository.findOne({
-            where: { id },
-            relations: ['author', 'comments']
-        });
+        return this.postRepository
+            .createQueryBuilder('post')
+            .leftJoinAndSelect('post.author', 'author')
+            .where('post.id = :id', { id })
+            .getOne();
     }
     async create(title, content, thumbnailUrl, author) {
         const post = this.postRepository.create({

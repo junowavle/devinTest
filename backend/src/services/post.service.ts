@@ -15,8 +15,6 @@ export class PostService {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.author', 'author')
-      .leftJoinAndSelect('post.comments', 'comments')
-      .leftJoinAndSelect('post.reactions', 'reactions')
       .orderBy('post.createdAt', 'DESC')
       .getMany();
   }
@@ -25,8 +23,6 @@ export class PostService {
     return this.postRepository
       .createQueryBuilder('post')
       .leftJoinAndSelect('post.author', 'author')
-      .leftJoinAndSelect('post.comments', 'comments')
-      .leftJoinAndSelect('post.reactions', 'reactions')
       .where('post.id = :id', { id })
       .getOne();
   }
