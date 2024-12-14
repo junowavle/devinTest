@@ -22,58 +22,46 @@ let PostService = class PostService {
         this.postRepository = postRepository;
     }
     async findAll() {
-        return this.postRepository.find({
-            relations: {
-                author: true,
-                comments: true
-            },
-            select: {
-                id: true,
-                title: true,
-                content: true,
-                thumbnailUrl: true,
-                createdAt: true,
-                updatedAt: true,
-                author: {
-                    id: true,
-                    name: true
-                },
-                comments: {
-                    id: true,
-                    content: true,
-                    createdAt: true
-                }
-            },
-            order: {
-                createdAt: 'DESC'
-            }
-        });
+        return this.postRepository
+            .createQueryBuilder('post')
+            .leftJoinAndSelect('post.author', 'author')
+            .leftJoinAndSelect('post.comments', 'comments')
+            .select([
+            'post.id',
+            'post.title',
+            'post.content',
+            'post.thumbnailUrl',
+            'post.createdAt',
+            'post.updatedAt',
+            'author.id',
+            'author.name',
+            'comments.id',
+            'comments.content',
+            'comments.createdAt'
+        ])
+            .orderBy('post.createdAt', 'DESC')
+            .getMany();
     }
     async findOne(id) {
-        return this.postRepository.findOne({
-            where: { id },
-            relations: {
-                author: true,
-                comments: true
-            },
-            select: {
-                id: true,
-                title: true,
-                content: true,
-                thumbnailUrl: true,
-                createdAt: true,
-                updatedAt: true,
-                author: {
-                    id: true,
-                    name: true
-                },
-                comments: {
-                    id: true,
-                    content: true,
-                    createdAt: true
-                }
-            }
-        });
+        return this.postRepository
+            .createQueryBuilder('post')
+            .leftJoinAndSelect('post.author', 'author')
+            .leftJoinAndSelect('post.comments', 'comments')
+            .select([
+            'post.id',
+            'post.title',
+            'post.content',
+            'post.thumbnailUrl',
+            'post.createdAt',
+            'post.updatedAt',
+            'author.id',
+            'author.name',
+            'comments.id',
+            'comments.content',
+            'comments.createdAt'
+        ])
+            .where('post.id = :id', { id })
+            .getOne();
     }
     async create(title, content, thumbnailUrl, author) {
         const post = this.postRepository.create({

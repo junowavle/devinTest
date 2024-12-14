@@ -34,8 +34,10 @@ exports.AppModule = AppModule = __decorate([
                 autoSchemaFile: true,
                 playground: true,
                 buildSchemaOptions: {
-                    orphanedTypes: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment]
-                }
+                    orphanedTypes: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment],
+                    numberScalarMode: 'integer'
+                },
+                introspection: true
             }),
         ],
         providers: [
