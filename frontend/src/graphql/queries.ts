@@ -6,10 +6,20 @@ export const GET_RECENT_POSTS = gql`
       id
       title
       content
+      thumbnailUrl
       createdAt
+      updatedAt
       author {
         id
         name
+      }
+      reactions {
+        id
+        reactionType
+        user {
+          id
+          name
+        }
       }
     }
   }
