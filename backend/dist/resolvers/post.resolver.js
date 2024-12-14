@@ -17,16 +17,22 @@ const graphql_1 = require("@nestjs/graphql");
 const post_entity_1 = require("../entities/post.entity");
 const post_service_1 = require("../services/post.service");
 const user_service_1 = require("../services/user.service");
+const reaction_service_1 = require("../services/reaction.service");
+const reaction_entity_1 = require("../entities/reaction.entity");
 let PostResolver = class PostResolver {
-    constructor(postService, userService) {
+    constructor(postService, userService, reactionService) {
         this.postService = postService;
         this.userService = userService;
+        this.reactionService = reactionService;
     }
     async posts() {
         return this.postService.findAll();
     }
     async post(id) {
         return this.postService.findOne(id);
+    }
+    async reactions(post) {
+        return this.reactionService.getReactions('post', post.id);
     }
     async createPost(title, content, thumbnailUrl, authorId) {
         const author = await this.userService.findOne(authorId);
@@ -53,6 +59,13 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "post", null);
+__decorate([
+    (0, graphql_1.ResolveField)(() => [reaction_entity_1.Reaction]),
+    __param(0, (0, graphql_1.Parent)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [post_entity_1.Post]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "reactions", null);
 __decorate([
     (0, graphql_1.Mutation)(() => post_entity_1.Post),
     __param(0, (0, graphql_1.Args)('title')),
@@ -83,6 +96,7 @@ __decorate([
 exports.PostResolver = PostResolver = __decorate([
     (0, graphql_1.Resolver)(() => post_entity_1.Post),
     __metadata("design:paramtypes", [post_service_1.PostService,
-        user_service_1.UserService])
+        user_service_1.UserService,
+        reaction_service_1.ReactionService])
 ], PostResolver);
 //# sourceMappingURL=post.resolver.js.map
