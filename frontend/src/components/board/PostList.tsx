@@ -25,10 +25,16 @@ export const PostList: React.FC<PostListProps> = ({
       {posts.map((post) => (
         <PostCard
           key={post.id}
-          title={post.title}
-          content={post.content}
-          thumbnail={post.thumbnail}
-          author={post.author}
+          post={{
+            id: post.id.toString(),
+            title: post.title,
+            content: post.content,
+            createdAt: new Date().toISOString(),
+            author: {
+              id: '1',
+              name: post.author
+            }
+          }}
           onEdit={onEditPost ? () => onEditPost(post.id) : undefined}
           onDelete={onDeletePost ? () => onDeletePost(post.id) : undefined}
         />

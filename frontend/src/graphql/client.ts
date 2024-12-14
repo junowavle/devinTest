@@ -1,15 +1,25 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const httpLink = createHttpLink({
-  uri: 'https://hi-chat-app-tunnel-njjayuhq.devinapps.com/graphql',
+  uri: import.meta.env.VITE_GRAPHQL_URL,
+  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
     'Apollo-Require-Preflight': 'true',
-    'Authorization': 'Basic ' + btoa('user:ac616014d3a040a661724e773467ec9f')
+    'Authorization': 'Basic ' + btoa(`user:${import.meta.env.VITE_AUTH_TOKEN}`),
+    'Accept': 'application/json'
   }
 });
 
 export const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'network-only'
+    },
+    query: {
+      fetchPolicy: 'network-only'
+    }
+  }
 });

@@ -12,47 +12,17 @@ export class PostService {
   ) {}
 
   async findAll(): Promise<Post[]> {
-    return this.postRepository
-      .createQueryBuilder('post')
-      .leftJoinAndSelect('post.author', 'author')
-      .leftJoinAndSelect('post.comments', 'comments')
-      .select([
-        'post.id',
-        'post.title',
-        'post.content',
-        'post.thumbnailUrl',
-        'post.createdAt',
-        'post.updatedAt',
-        'author.id',
-        'author.name',
-        'comments.id',
-        'comments.content',
-        'comments.createdAt'
-      ])
-      .orderBy('post.createdAt', 'DESC')
-      .getMany();
+    return this.postRepository.find({
+      order: {
+        createdAt: 'DESC'
+      }
+    });
   }
 
   async findOne(id: number): Promise<Post> {
-    return this.postRepository
-      .createQueryBuilder('post')
-      .leftJoinAndSelect('post.author', 'author')
-      .leftJoinAndSelect('post.comments', 'comments')
-      .select([
-        'post.id',
-        'post.title',
-        'post.content',
-        'post.thumbnailUrl',
-        'post.createdAt',
-        'post.updatedAt',
-        'author.id',
-        'author.name',
-        'comments.id',
-        'comments.content',
-        'comments.createdAt'
-      ])
-      .where('post.id = :id', { id })
-      .getOne();
+    return this.postRepository.findOne({
+      where: { id }
+    });
   }
 
   async create(title: string, content: string, thumbnailUrl: string, author: User): Promise<Post> {

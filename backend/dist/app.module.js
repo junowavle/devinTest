@@ -27,12 +27,16 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot(database_config_1.databaseConfig),
+            typeorm_1.TypeOrmModule.forRoot({
+                ...database_config_1.databaseConfig,
+                keepConnectionAlive: true,
+            }),
             typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment]),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: true,
                 playground: true,
+                debug: true,
                 buildSchemaOptions: {
                     orphanedTypes: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment],
                     numberScalarMode: 'integer'

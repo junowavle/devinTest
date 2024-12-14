@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, gradients } from '../../styles/colors';
+import { gradients } from '../../styles/colors';
 
 export const Banner: React.FC = () => {
   return (

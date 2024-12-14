@@ -15,12 +15,16 @@ import { CommentService } from './services/comment.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(databaseConfig),
+    TypeOrmModule.forRoot({
+      ...databaseConfig,
+      keepConnectionAlive: true,
+    }),
     TypeOrmModule.forFeature([User, Post, Comment]),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: true,
       playground: true,
+      debug: true,
       buildSchemaOptions: {
         orphanedTypes: [User, Post, Comment],
         numberScalarMode: 'integer'

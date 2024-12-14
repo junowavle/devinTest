@@ -6,7 +6,7 @@ export declare class Post {
     content: string;
     thumbnailUrl: string;
     author: User;
-    comments?: Comment[];
+    comments: Comment[];
     createdAt: Date;
     updatedAt: Date;
 }

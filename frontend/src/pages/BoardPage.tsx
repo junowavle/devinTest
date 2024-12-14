@@ -38,9 +38,9 @@ const CREATE_POST = gql`
 `;
 
 export const BoardPage: React.FC = () => {
-  const [isCreating, setIsCreating] = useState(false);
   const { loading, error, data } = useQuery(GET_POSTS);
   const [createPost] = useMutation(CREATE_POST);
+  const [isCreating, setIsCreating] = useState(false);
 
   const handleCreatePost = async (formData: any) => {
     try {

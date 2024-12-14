@@ -38,13 +38,13 @@ __decorate([
     __metadata("design:type", String)
 ], Post.prototype, "thumbnailUrl", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => user_entity_1.User),
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User),
+    (0, graphql_1.Field)(() => user_entity_1.User, { nullable: true }),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, { eager: true }),
     __metadata("design:type", user_entity_1.User)
 ], Post.prototype, "author", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [comment_entity_1.Comment], { nullable: true }),
-    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, comment => comment.post),
+    (0, graphql_1.Field)(() => [comment_entity_1.Comment], { nullable: true, defaultValue: [] }),
+    (0, typeorm_1.OneToMany)(() => comment_entity_1.Comment, comment => comment.post, { eager: true }),
     __metadata("design:type", Array)
 ], Post.prototype, "comments", void 0);
 __decorate([
@@ -58,7 +58,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Post.prototype, "updatedAt", void 0);
 exports.Post = Post = __decorate([
-    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.ObjectType)('Post', { isAbstract: true }),
     (0, typeorm_1.Entity)()
 ], Post);
 //# sourceMappingURL=post.entity.js.map

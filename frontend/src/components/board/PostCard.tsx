@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, shadows } from '../../styles/colors';
+import { shadows } from '../../styles/colors';
 
 export interface Post {
   id: string;

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '../shared/Button';
-import { colors, shadows } from '../../styles/colors';
+import { shadows } from '../../styles/colors';
 
 interface CommentProps {
   author: string;
