@@ -11,19 +11,29 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div className="min-h-screen bg-gray-50">
-          <nav className="bg-white shadow-sm">
-            <div className="container mx-auto px-4">
+          <nav className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+            <div className="max-w-[1920px] mx-auto px-8">
               <div className="flex justify-between h-16">
                 <div className="flex items-center">
-                  <Link to="/" className="text-2xl font-bold" style={{ color: colors.primary.orange }}>
+                  <Link
+                    to="/"
+                    className="text-2xl font-semibold tracking-tight"
+                    style={{ color: colors.primary.orange }}
+                  >
                     Pet Community
                   </Link>
                 </div>
-                <div className="flex items-center space-x-8">
-                  <Link to="/" className="text-gray-700 hover:text-orange-600">
+                <div className="flex items-center space-x-12">
+                  <Link
+                    to="/"
+                    className="text-gray-700 hover:text-orange-600 transition-all duration-200"
+                  >
                     Home
                   </Link>
-                  <Link to="/board" className="text-gray-700 hover:text-orange-600">
+                  <Link
+                    to="/board"
+                    className="text-gray-700 hover:text-orange-600 transition-all duration-200"
+                  >
                     Bulletin Board
                   </Link>
                 </div>
@@ -31,10 +41,12 @@ function App() {
             </div>
           </nav>
 
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/board" element={<BoardPage />} />
-          </Routes>
+          <main className="max-w-[1920px] mx-auto px-8">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/board" element={<BoardPage />} />
+            </Routes>
+          </main>
         </div>
       </Router>
     </ApolloProvider>
