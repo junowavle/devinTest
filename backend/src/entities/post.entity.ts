@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDat
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { User } from './user.entity';
 import { Comment } from './comment.entity';
+import { Reaction } from './reaction.entity';
 
 @ObjectType()
 @Entity()
@@ -29,6 +30,10 @@ export class Post {
   @Field(() => [Comment])
   @OneToMany(() => Comment, comment => comment.post)
   comments: Comment[];
+
+  @Field(() => [Reaction])
+  @OneToMany(() => Reaction, reaction => reaction.post)
+  reactions: Reaction[];
 
   @Field()
   @CreateDateColumn()

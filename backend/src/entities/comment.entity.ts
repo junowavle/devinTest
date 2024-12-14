@@ -24,7 +24,7 @@ export class Comment {
   post: Post;
 
   @Field(() => [Reaction])
-  @OneToMany(() => Reaction, reaction => reaction.targetId)
+  @OneToMany(() => Reaction, reaction => reaction.comment)
   reactions: Reaction[];
 
   @Field()
