@@ -7,7 +7,7 @@ export declare class CommentResolver {
     private userService;
     private postService;
     constructor(commentService: CommentService, userService: UserService, postService: PostService);
-    comments(postId: number): Promise<Comment[]>;
-    createComment(content: string, authorId: number, postId: number): Promise<Comment>;
-    deleteComment(id: number): Promise<boolean>;
+    comments(postId: string): Promise<Comment[]>;
+    createComment(content: string, authorId: string, postId: string): Promise<Comment>;
+    deleteComment(id: string): Promise<boolean>;
 }

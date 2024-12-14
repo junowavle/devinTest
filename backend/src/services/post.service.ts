@@ -13,15 +13,17 @@ export class PostService {
 
   async findAll(): Promise<Post[]> {
     return this.postRepository.find({
+      relations: ['comments', 'author'],
       order: {
         createdAt: 'DESC'
       }
     });
   }
 
-  async findOne(id: number): Promise<Post> {
+  async findOne(id: string): Promise<Post> {
     return this.postRepository.findOne({
-      where: { id }
+      where: { id },
+      relations: ['comments', 'author']
     });
   }
 
@@ -35,7 +37,7 @@ export class PostService {
     return this.postRepository.save(post);
   }
 
-  async update(id: number, title?: string, content?: string, thumbnailUrl?: string): Promise<Post> {
+  async update(id: string, title?: string, content?: string, thumbnailUrl?: string): Promise<Post> {
     await this.postRepository.update(id, {
       ...(title && { title }),
       ...(content && { content }),
@@ -44,7 +46,7 @@ export class PostService {
     return this.findOne(id);
   }
 
-  async delete(id: number): Promise<boolean> {
+  async delete(id: string): Promise<boolean> {
     const result = await this.postRepository.delete(id);
     return result.affected > 0;
   }

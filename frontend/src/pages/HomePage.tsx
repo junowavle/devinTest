@@ -11,8 +11,28 @@ const GET_RECENT_POSTS = gql`
       title
       content
       thumbnailUrl
+      createdAt
       author {
+        id
         name
+      }
+      comments {
+        id
+        content
+        author {
+          id
+          name
+        }
+        reactions {
+          id
+          type
+          userId
+        }
+      }
+      reactions {
+        id
+        type
+        userId
       }
     }
   }
@@ -27,15 +47,36 @@ export const HomePage: React.FC = () => {
       <div className="container mx-auto py-16">
         <h2 className="text-3xl font-bold mb-8">Recent Posts</h2>
         {loading ? (
-          <p>Loading posts...</p>
+          <div className="flex justify-center items-center py-8">
+            <p className="text-gray-600">Loading posts...</p>
+          </div>
         ) : error ? (
-          <p>Error loading posts</p>
+          <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+            <p className="text-red-600">Error loading posts: {error.message}</p>
+          </div>
         ) : (
           <PostList
-            posts={data?.posts.map((post: any) => ({
-              ...post,
-              author: post.author.name,
-            }))}
+            posts={data?.posts?.map((post: any) => ({
+              id: post.id,
+              title: post.title,
+              content: post.content,
+              thumbnailUrl: post.thumbnailUrl,
+              createdAt: post.createdAt,
+              author: {
+                id: post.author?.id || '0',
+                name: post.author?.name || 'Anonymous'
+              },
+              comments: post.comments?.map((comment: any) => ({
+                id: comment.id,
+                content: comment.content,
+                author: {
+                  id: comment.author?.id || '0',
+                  name: comment.author?.name || 'Anonymous'
+                },
+                reactions: comment.reactions || []
+              })) || [],
+              reactions: post.reactions || []
+            })) || []}
           />
         )}
       </div>

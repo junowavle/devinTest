@@ -14,13 +14,14 @@ const typeorm_1 = require("typeorm");
 const graphql_1 = require("@nestjs/graphql");
 const user_entity_1 = require("./user.entity");
 const post_entity_1 = require("./post.entity");
+const reaction_entity_1 = require("./reaction.entity");
 let Comment = class Comment {
 };
 exports.Comment = Comment;
 __decorate([
     (0, graphql_1.Field)(() => graphql_1.ID),
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
+    (0, typeorm_1.PrimaryGeneratedColumn)('uuid'),
+    __metadata("design:type", String)
 ], Comment.prototype, "id", void 0);
 __decorate([
     (0, graphql_1.Field)(),
@@ -29,7 +30,7 @@ __decorate([
 ], Comment.prototype, "content", void 0);
 __decorate([
     (0, graphql_1.Field)(() => user_entity_1.User),
-    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, user => user.comments),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, user => user.comments, { eager: true, nullable: false }),
     __metadata("design:type", user_entity_1.User)
 ], Comment.prototype, "author", void 0);
 __decorate([
@@ -38,12 +39,17 @@ __decorate([
     __metadata("design:type", post_entity_1.Post)
 ], Comment.prototype, "post", void 0);
 __decorate([
+    (0, graphql_1.Field)(() => [reaction_entity_1.Reaction], { nullable: true, defaultValue: [] }),
+    (0, typeorm_1.OneToMany)(() => reaction_entity_1.Reaction, reaction => reaction.comment, { eager: true }),
+    __metadata("design:type", Array)
+], Comment.prototype, "reactions", void 0);
+__decorate([
     (0, graphql_1.Field)(),
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Comment.prototype, "createdAt", void 0);
 exports.Comment = Comment = __decorate([
-    (0, graphql_1.ObjectType)(),
+    (0, graphql_1.ObjectType)('Comment'),
     (0, typeorm_1.Entity)()
 ], Comment);
 //# sourceMappingURL=comment.entity.js.map

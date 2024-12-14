@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { GET_RECENT_POSTS } from '../../graphql/queries';
-import { PostCard, Post } from '../board/PostCard';
+import { GET_POSTS } from '../../graphql/queries';
+import { Post } from '../../types';
+import { PostCard } from '../board/PostCard';
 
 const RecentPosts: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_RECENT_POSTS);
+  const { loading, error, data } = useQuery(GET_POSTS);
 
   useEffect(() => {
     if (error) {

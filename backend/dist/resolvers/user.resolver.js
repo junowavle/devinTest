@@ -29,6 +29,9 @@ let UserResolver = class UserResolver {
     async createUser(name) {
         return this.userService.create(name);
     }
+    async testUser() {
+        return this.userService.findOrCreateTestUser();
+    }
 };
 exports.UserResolver = UserResolver;
 __decorate([
@@ -39,9 +42,9 @@ __decorate([
 ], UserResolver.prototype, "users", null);
 __decorate([
     (0, graphql_1.Query)(() => user_entity_1.User),
-    __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.Int })),
+    __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.ID })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "user", null);
 __decorate([
@@ -51,6 +54,12 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
+__decorate([
+    (0, graphql_1.Query)(() => user_entity_1.User),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "testUser", null);
 exports.UserResolver = UserResolver = __decorate([
     (0, graphql_1.Resolver)(() => user_entity_1.User),
     __metadata("design:paramtypes", [user_service_1.UserService])

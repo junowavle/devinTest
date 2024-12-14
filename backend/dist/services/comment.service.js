@@ -32,7 +32,6 @@ let CommentService = class CommentService {
     async findByPost(postId) {
         return this.commentRepository.find({
             where: { post: { id: postId } },
-            relations: ['author'],
             order: { createdAt: 'DESC' }
         });
     }

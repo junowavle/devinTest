@@ -15,38 +15,39 @@ const database_config_1 = require("./config/database.config");
 const user_entity_1 = require("./entities/user.entity");
 const post_entity_1 = require("./entities/post.entity");
 const comment_entity_1 = require("./entities/comment.entity");
+const reaction_entity_1 = require("./entities/reaction.entity");
 const user_resolver_1 = require("./resolvers/user.resolver");
 const post_resolver_1 = require("./resolvers/post.resolver");
 const comment_resolver_1 = require("./resolvers/comment.resolver");
+const reaction_resolver_1 = require("./resolvers/reaction.resolver");
 const user_service_1 = require("./services/user.service");
 const post_service_1 = require("./services/post.service");
 const comment_service_1 = require("./services/comment.service");
+const reaction_service_1 = require("./services/reaction.service");
+const init_service_1 = require("./services/init.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                ...database_config_1.databaseConfig,
-                keepConnectionAlive: true,
-            }),
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment]),
+            typeorm_1.TypeOrmModule.forRoot(Object.assign(Object.assign({}, database_config_1.databaseConfig), { keepConnectionAlive: true })),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, reaction_entity_1.Reaction]),
             graphql_1.GraphQLModule.forRoot({
                 driver: apollo_1.ApolloDriver,
                 autoSchemaFile: true,
                 playground: true,
                 debug: true,
                 buildSchemaOptions: {
-                    orphanedTypes: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment],
-                    numberScalarMode: 'integer'
+                    orphanedTypes: [user_entity_1.User, post_entity_1.Post, comment_entity_1.Comment, reaction_entity_1.Reaction]
                 },
                 introspection: true
             }),
         ],
         providers: [
-            user_resolver_1.UserResolver, post_resolver_1.PostResolver, comment_resolver_1.CommentResolver,
-            user_service_1.UserService, post_service_1.PostService, comment_service_1.CommentService
+            user_resolver_1.UserResolver, post_resolver_1.PostResolver, comment_resolver_1.CommentResolver, reaction_resolver_1.ReactionResolver,
+            user_service_1.UserService, post_service_1.PostService, comment_service_1.CommentService, reaction_service_1.ReactionService,
+            init_service_1.InitService
         ],
     })
 ], AppModule);

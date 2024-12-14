@@ -28,7 +28,7 @@ let CommentResolver = class CommentResolver {
         return this.commentService.findByPost(postId);
     }
     async createComment(content, authorId, postId) {
-        const author = await this.userService.findOne(authorId);
+        const author = await this.userService.findOrCreateTestUser();
         const post = await this.postService.findOne(postId);
         return this.commentService.create(content, author, post);
     }
@@ -39,25 +39,25 @@ let CommentResolver = class CommentResolver {
 exports.CommentResolver = CommentResolver;
 __decorate([
     (0, graphql_1.Query)(() => [comment_entity_1.Comment]),
-    __param(0, (0, graphql_1.Args)('postId', { type: () => graphql_1.Int })),
+    __param(0, (0, graphql_1.Args)('postId', { type: () => graphql_1.ID })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommentResolver.prototype, "comments", null);
 __decorate([
     (0, graphql_1.Mutation)(() => comment_entity_1.Comment),
     __param(0, (0, graphql_1.Args)('content')),
-    __param(1, (0, graphql_1.Args)('authorId', { type: () => graphql_1.Int })),
-    __param(2, (0, graphql_1.Args)('postId', { type: () => graphql_1.Int })),
+    __param(1, (0, graphql_1.Args)('authorId', { type: () => graphql_1.ID })),
+    __param(2, (0, graphql_1.Args)('postId', { type: () => graphql_1.ID })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Number, Number]),
+    __metadata("design:paramtypes", [String, String, String]),
     __metadata("design:returntype", Promise)
 ], CommentResolver.prototype, "createComment", null);
 __decorate([
     (0, graphql_1.Mutation)(() => Boolean),
-    __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.Int })),
+    __param(0, (0, graphql_1.Args)('id', { type: () => graphql_1.ID })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommentResolver.prototype, "deleteComment", null);
 exports.CommentResolver = CommentResolver = __decorate([

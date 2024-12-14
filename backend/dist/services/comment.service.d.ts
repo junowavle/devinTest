@@ -6,6 +6,6 @@ export declare class CommentService {
     private commentRepository;
     constructor(commentRepository: Repository<Comment>);
     create(content: string, author: User, post: Post): Promise<Comment>;
-    findByPost(postId: number): Promise<Comment[]>;
-    delete(id: number): Promise<boolean>;
+    findByPost(postId: string): Promise<Comment[]>;
+    delete(id: string): Promise<boolean>;
 }

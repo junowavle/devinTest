@@ -4,6 +4,7 @@ export declare class UserResolver {
     private userService;
     constructor(userService: UserService);
     users(): Promise<User[]>;
-    user(id: number): Promise<User>;
+    user(id: string): Promise<User>;
     createUser(name: string): Promise<User>;
+    testUser(): Promise<User>;
 }
