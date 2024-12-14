@@ -7,6 +7,10 @@ import { User } from './entities/user.entity';
 import { Post } from './entities/post.entity';
 import { Comment } from './entities/comment.entity';
 import { Reaction } from './entities/reaction.entity';
+import { UserResolver } from './resolvers/user.resolver';
+import { PostResolver } from './resolvers/post.resolver';
+import { CommentResolver } from './resolvers/comment.resolver';
+import { ReactionResolver } from './resolvers/reaction.resolver';
 
 @Module({
   imports: [
@@ -18,5 +22,6 @@ import { Reaction } from './entities/reaction.entity';
       playground: true,
     }),
   ],
+  providers: [UserResolver, PostResolver, CommentResolver, ReactionResolver],
 })
 export class AppModule {}
