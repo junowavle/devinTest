@@ -11,6 +11,10 @@ import { UserResolver } from './resolvers/user.resolver';
 import { PostResolver } from './resolvers/post.resolver';
 import { CommentResolver } from './resolvers/comment.resolver';
 import { ReactionResolver } from './resolvers/reaction.resolver';
+import { UserService } from './services/user.service';
+import { PostService } from './services/post.service';
+import { CommentService } from './services/comment.service';
+import { ReactionService } from './services/reaction.service';
 
 @Module({
   imports: [
@@ -22,6 +26,9 @@ import { ReactionResolver } from './resolvers/reaction.resolver';
       playground: true,
     }),
   ],
-  providers: [UserResolver, PostResolver, CommentResolver, ReactionResolver],
+  providers: [
+    UserResolver, PostResolver, CommentResolver, ReactionResolver,
+    UserService, PostService, CommentService, ReactionService
+  ],
 })
 export class AppModule {}
