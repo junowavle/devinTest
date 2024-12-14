@@ -1,8 +1,11 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'postgres',
-  url: 'postgres://user_xprmlirkve:7BVywdJTELL1NwrccGn1@devinapps-backend-prod.cluster-clussqewa0rh.us-west-2.rds.amazonaws.com/db_kvxtjcnxch',
+  url: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
   },
