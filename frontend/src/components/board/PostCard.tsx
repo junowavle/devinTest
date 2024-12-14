@@ -1,38 +1,38 @@
 import React from 'react';
 import { colors, shadows } from '../../styles/colors';
 
-interface PostCardProps {
+export interface Post {
+  id: string;
   title: string;
-  thumbnail?: string;
-  author: string;
   content: string;
+  createdAt: string;
+  author: {
+    id: string;
+    name: string;
+  };
+}
+
+interface PostCardProps {
+  post: Post;
   onEdit?: () => void;
   onDelete?: () => void;
 }
 
 export const PostCard: React.FC<PostCardProps> = ({
-  title,
-  thumbnail,
-  author,
-  content,
+  post,
   onEdit,
   onDelete,
 }) => {
+  const { title, content, author } = post;
+
   return (
     <div
       className="bg-white rounded-lg overflow-hidden"
       style={{ boxShadow: shadows.medium }}
     >
-      {thumbnail && (
-        <img
-          src={thumbnail}
-          alt={title}
-          className="w-full h-48 object-cover"
-        />
-      )}
       <div className="p-4">
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 mb-2">By {author}</p>
+        <p className="text-gray-600 mb-2">By {author.name}</p>
         <p className="text-gray-800 line-clamp-3">{content}</p>
         {(onEdit || onDelete) && (
           <div className="mt-4 flex gap-2">
